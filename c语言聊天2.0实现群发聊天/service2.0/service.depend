@@ -1,0 +1,26 @@
+# depslib dependency file v1.0
+1556939220 source:e:\c\daima\service\main.c
+	<winsock2.h>
+	<stdio.h>
+
+1556939220 source:e:\c\daima\c语言聊天1.0实现1v1聊天\service1.0\main.c
+	<winsock2.h>
+	<stdio.h>
+
+1558366053 source:e:\c\daima\service1.0\main.c
+	<winsock2.h>
+	<stdio.h>
+
+1558441216 source:e:\c\daima\c语言聊天2.0实现群发聊天\service2.0\main.c
+	<winsock2.h>
+	<stdio.h>
+
+1558448647 source:e:\c\problem\c语言聊天2.0实现群发聊天\service2.0\main.c
+	<winsock2.h>
+	<stdio.h>
+
+1595077321 source:d:\hsiaohuchu\项目文件\c语言聊天室\c语言聊天2.0实现群发聊天\service2.0\main.c
+	<winsock2.h>
+	<stdio.h>
+	<process.h>
+

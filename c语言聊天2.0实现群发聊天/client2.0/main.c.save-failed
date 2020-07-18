@@ -1,0 +1,77 @@
+#include <winsock2.h>
+#include <stdio.h>
+#define BUFF 1024
+int Port=6666,f;
+int flag=0;
+char sendbuff[1024];
+char recvbuff[1024];
+int thread_send(SOCKET c)
+{
+    while(1)
+    {
+
+        scanf("%s",sendbuff);
+        if(strcmp(sendbuff, "quit") == 0)   //quit
+        break;
+        //printf("\n用户1:");
+        f=send(c,sendbuff,BUFF,0);
+        if(-1==f)
+        {
+            printf("发送失败\n");
+            closesocket(c);
+            WSACleanup();
+            return -1;
+        }
+    }
+
+
+}
+void main()
+{
+
+    struct sockaddr_in serveadd;
+    SOCKET c,ret;
+    WSADATA wsaData;
+    WSAStartup(MAKEWORD(2,2),&wsaData);
+    c=socket(AF_INET,SOCK_STREAM,IPPROTO_TCP);
+    serveadd.sin_port=htons(Port);
+    serveadd.sin_family=AF_INET;
+    serveadd.sin_addr.s_addr = inet_addr("169.254.5.189");
+    printf("输入你的昵称\n");
+    scanf("%s",sendbuff);
+    if(connect(c, (SOCKADDR*)&serveadd, sizeof(serveadd))==-1)
+    {
+        printf("连接失败");
+        return -1;
+    }
+    send(c,sendbuff,BUFF,0);
+    _beginthreadex(NULL,0,&thread_send,c,NULL,0);
+    while(1)
+        {
+            ret = recv(c,recvbuff, BUFF, 0);
+            if(ret>0)
+            {
+                if(flag<2)
+                {
+                   printf("%s",recvbuff);
+                }
+                else
+                printf("%s\n",recvbuff);
+                flag++;
+                flag=flag%3;
+
+            }
+
+            else
+            {
+                printf("接受失败\n");
+                closesocket(c);
+                WSACleanup();
+                return -1;
+
+            }
+        }
+    shutdown(c, SD_BOTH);
+    closesocket(c);
+    WSACleanup();
+}
